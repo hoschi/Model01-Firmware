@@ -1,3 +1,7 @@
+# Me
+
+* [Arch setup help thread](https://community.keyboard.io/t/problems-getting-started-reflashing-model-01-on-arch-linux/488/20  )
+
 # Keyboardio Model 01 Firmware
 
 _The default firmware for the Keyboardio Model 01_
