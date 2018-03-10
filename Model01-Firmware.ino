@@ -59,6 +59,8 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
+// copied from pending PR https://github.com/michabu/Kaleidoscope/blob/0a305fcd5a4d8eb87865786c9a6fcd4ee2866493/src/kaleidoscope/lang/de_qwertz.h
+#include "lang_de_quertz.h"
 
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
@@ -121,73 +123,74 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { QWERTY, PARENS, FUNCTION, NUMPAD }; // layers
+enum { QW, PA, FU, NU }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
  */
 // *INDENT-OFF*
 
+// use `setxkbmap de nodeadkeys` as workaround for dead backtick
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
-  [QWERTY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   ___, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   ___, Key_A, Key_S, Key_D, Key_F, Key_G,
-   ___, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_Escape, Key_Backspace, Key_LeftShift, Key_LeftControl,
-   ShiftToLayer(PARENS),
+  [QW] = KEYMAP_STACKED
+  (___                        , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5              , Key_LEDEffectNext ,
+   ___                        , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , Key_Tab           ,
+   ___                        , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
+   ___                        , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_Escape        ,
+   Key_Escape                 , Key_Backspace          , Key_LeftShift     , Key_LeftControl    ,
+   ShiftToLayer(PA)           ,
 
-   Key_UpArrow,   Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         ___,
-                  Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, ___,
-   Key_RightAlt,  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     ___,
-   Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
-   ShiftToLayer(PARENS)),
+   Key_UpArrow                , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
+   Key_Enter                  , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
+   /*                         , */Key_de_S             , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D           , Key_de_Y          ,
+   ___                        , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
+   Key_RightControl           , Key_RightShift         , Key_Spacebar      , Key_LeftAlt        ,
+   ShiftToLayer(PA))          ,
 
-  [PARENS] = KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ShiftToLayer(FUNCTION), ___, ___,
-   ___,
+  [PA] = KEYMAP_STACKED
+  (___                        , Key_F1                 , Key_F2            , Key_F3             , Key_F4              , Key_F5             , ___               ,
+   ___                        , ___                    , Key_de_Underscore , Key_de_LeftBracket , Key_de_RightBracket , Key_de_Circumflex  , ___               ,
+   ___                        , Key_de_Backslash       , Key_de_Slash      , Key_de_LeftCurly   , Key_de_RightCurly   , Key_de_Asterisk    ,
+   ___                        , Key_de_Hash            , Key_de_Dollar     , Key_de_Pipe        , Key_de_Tilde        , Key_de_Backtick    , ___               ,
+   ___                        , ShiftToLayer(FU)       , ___               , ___                ,
+   ___                        ,
 
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-        ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ShiftToLayer(FUNCTION), ___,
-   ___),
+   ___                        , Key_F6                 , Key_F7            , Key_F8             , Key_F9              , Key_F10            , Key_F11           ,
+   ___                        , Key_de_ExlamationMark  , Key_de_LessThan   , Key_de_GreaterThan , Key_de_Equals       , Key_de_Ampersand   , Key_F12           ,
+   /*                         , */ Key_de_QuestionMark , Key_de_LeftParen  , Key_de_RightParen  , Key_de_Minus        , Key_de_Colon       , Key_de_At         ,
+   ___                        , Key_de_Plus            , Key_de_Percent    , Key_de_DoubleQuote , Key_de_Quote        , Key_de_Semicolon   , ___               ,
+   ___                        , ___                    , ShiftToLayer(FU)  , ___                ,
+   ___)                       ,
 
-  [FUNCTION] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
+  [FU] =  KEYMAP_STACKED
+  (___                        , ___                    , ___               , ___                , ___                 , ___                , ___               ,
+   ___                        , Key_PageUp             , Key_Backspace     , Key_UpArrow        , Key_Delete          , Key_PageDown       , ___               ,
+   ___                        , Key_Home               , Key_LeftArrow     , Key_DownArrow      , Key_RightArrow      , Key_End            ,
+   ___                        , Key_Escape             , Key_Tab           , ___                , Key_Enter           , Key_Undo           , ___               ,
+   ___                        , ___                    , ___               , ___                ,
+   ___                        ,
 
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-        ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___),
+   ___                        , ___                    , ___               , ___                , ___                 , ___                , ___               ,
+   ___                        , ___                    , Key_7             , Key_8              , Key_9               , Key_de_Plus        , Key_de_Minus      ,
+/*                            , */ ___                 , Key_4             , Key_5              , Key_6               , Key_de_Comma       , Key_de_Period     ,
+   ___                        , Key_de_Colon           , Key_1             , Key_2              , Key_3               , Key_de_Semicolon   , ___               ,
+   ___                        , ___                    , ___               , ___                ,
+   ___)                       ,
 
-  [NUMPAD] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
+  [NU] =  KEYMAP_STACKED
+  (___                        , ___                    , ___               , ___                , ___                 , ___                , ___               ,
+   ___                        , ___                    , ___               , ___                , ___                 , ___                , ___               ,
+   ___                        , ___                    , ___               , ___                , ___                 , ___                ,
+   ___                        , ___                    , ___               , ___                , ___                 , ___                , ___               ,
+   ___                        , ___                    , ___               , ___                ,
+   ___                        ,
 
-   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, ___,
-   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
-						   ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         Key_Quote,
-   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-   ___, ___, ___, ___,
+   M(MACRO_VERSION_INFO)      , ___                    , Key_Keypad7       , Key_Keypad8        , Key_Keypad9         , Key_KeypadSubtract , ___               ,
+   ___                        , ___                    , Key_Keypad4       , Key_Keypad5        , Key_Keypad6         , Key_KeypadAdd      , ___               ,
+						   /* , */___                  , Key_Keypad1       , Key_Keypad2        , Key_Keypad3         , Key_Equals         , Key_Quote         ,
+   ___                        , ___                    , Key_Keypad0       , Key_KeypadDot      , Key_KeypadMultiply  , Key_KeypadDivide   , Key_Enter         ,
+   ___                        , ___                    , ___               , ___                ,
    ___)
 
 };
@@ -360,7 +363,7 @@ void setup() {
 
   // While we hope to improve this in the future, the NumPad plugin
   // needs to be explicitly told which keymap layer is your numpad layer
-  NumPad.numPadLayer = NUMPAD;
+  NumPad.numPadLayer = NU;
 
   // We configure the AlphaSquare effect to use RED letters
   AlphaSquare.color = { 255, 0, 0 };
