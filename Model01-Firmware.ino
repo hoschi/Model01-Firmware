@@ -135,9 +135,9 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [QW] = KEYMAP_STACKED
   (___                        , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5              , Key_LEDEffectNext ,
-   ___                        , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , Key_Tab           ,
-   ___                        , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
-   ___                        , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_Escape        ,
+   Consumer_PlaySlashPause    , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , Key_Tab           ,
+   Consumer_ScanNextTrack     , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
+   Consumer_ScanPreviousTrack , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_Escape        ,
    Key_Escape                 , Key_Backspace          , Key_LeftShift     , Key_LeftControl    ,
    ShiftToLayer(PA)           ,
 
@@ -153,14 +153,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___                        , ___                    , Key_de_Underscore , Key_de_LeftBracket , Key_de_RightBracket , Key_de_Circumflex  , ___               ,
    ___                        , Key_de_Backslash       , Key_de_Slash      , Key_de_LeftCurly   , Key_de_RightCurly   , Key_de_Asterisk    ,
    ___                        , Key_de_Hash            , Key_de_Dollar     , Key_de_Pipe        , Key_de_Tilde        , Key_de_Backtick    , ___               ,
-   ___                        , ShiftToLayer(FU)       , ___               , ___                ,
+   ___                        , ShiftToLayer(FU)       , Key_Enter         , ___                ,
    ___                        ,
 
    ___                        , Key_F6                 , Key_F7            , Key_F8             , Key_F9              , Key_F10            , Key_F11           ,
    ___                        , Key_de_ExlamationMark  , Key_de_LessThan   , Key_de_GreaterThan , Key_de_Equals       , Key_de_Ampersand   , Key_F12           ,
    /*                         , */ Key_de_QuestionMark , Key_de_LeftParen  , Key_de_RightParen  , Key_de_Minus        , Key_de_Colon       , Key_de_At         ,
    ___                        , Key_de_Plus            , Key_de_Percent    , Key_de_DoubleQuote , Key_de_Quote        , Key_de_Semicolon   , ___               ,
-   ___                        , ___                    , ShiftToLayer(FU)  , ___                ,
+   ___                        , Key_Tab                , ShiftToLayer(FU)  , ___                ,
    ___)                       ,
 
   [FU] =  KEYMAP_STACKED
@@ -175,7 +175,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___                        , ___                    , Key_7             , Key_8              , Key_9               , Key_de_Plus        , Key_de_Minus      ,
 /*                            , */ ___                 , Key_4             , Key_5              , Key_6               , Key_de_Comma       , Key_de_Period     ,
    ___                        , Key_de_Colon           , Key_1             , Key_2              , Key_3               , Key_de_Semicolon   , ___               ,
-   ___                        , ___                    , ___               , ___                ,
+   ___                        , Key_0                  , ___               , ___                ,
    ___)                       ,
 
   [NU] =  KEYMAP_STACKED
