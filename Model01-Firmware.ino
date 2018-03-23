@@ -59,6 +59,9 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
+// Support doing stuff when certain keys are pressed and held together
+#include <Kaleidoscope-MagicCombo.h>
+
 // copied from pending PR https://github.com/michabu/Kaleidoscope/blob/0a305fcd5a4d8eb87865786c9a6fcd4ee2866493/src/kaleidoscope/lang/de_qwertz.h
 #include "lang_de_quertz.h"
 
@@ -254,6 +257,25 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   return MACRO_NONE;
 }
 
+// caps lock keys, hold both shift keys
+static const kaleidoscope::MagicCombo::combo_t magic_combos[] PROGMEM = {
+  {R2C7, // left hand,
+   R2C8  // right hand
+  },
+  {0, 0}
+};
+
+void magicComboActions(uint8_t combo_index,
+                       uint32_t left_hand, uint32_t right_hand) {
+  switch (combo_index) {
+  // send a caps lock key press
+  case 0:
+    kaleidoscope::hid::pressKey(Key_CapsLock);
+    kaleidoscope::hid::sendKeyboardReport();
+    kaleidoscope::hid::releaseKey(Key_CapsLock);
+    break;
+  }
+}
 
 
 // These 'solid' color effect definitions define a rainbow of
@@ -358,7 +380,10 @@ void setup() {
 
     // The HostPowerManagement plugin enables waking up the host from suspend,
     // and allows us to turn LEDs off when it goes to sleep.
-    &HostPowerManagement
+    &HostPowerManagement,
+
+    // The MagicPower plugin enables actions when keys are held together.
+    &MagicCombo
   );
 
   // While we hope to improve this in the future, the NumPad plugin
@@ -385,6 +410,9 @@ void setup() {
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
   LEDOff.activate();
+
+  // Activate magic combos
+  MagicCombo.magic_combos = magic_combos;
 }
 
 /** loop is the second of the standard Arduino sketch functions.
