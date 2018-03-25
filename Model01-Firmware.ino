@@ -59,9 +59,6 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
-// Support doing stuff when certain keys are pressed and held together
-#include <Kaleidoscope-MagicCombo.h>
-
 // Support key do different things while held or tapped
 #include <Kaleidoscope-DualUse.h>
 
@@ -143,14 +140,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (___                                  , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5              , Key_LEDEffectNext ,
    Consumer_PlaySlashPause              , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , Key_Tab           ,
    Consumer_ScanNextTrack               , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
-   Consumer_ScanPreviousTrack           , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , ___               ,
+   Consumer_ScanPreviousTrack           , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_LeftShift     ,
    ALT_T(Escape)                        , Key_Backspace          , SFT_T(Enter)      , Key_LeftControl    ,
    ShiftToLayer(PA)                     ,
 
    System_Sleep                         , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
-                              Key_Enter , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
+   Key_Enter                            , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
    /*                                   , */Key_de_S             , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D           , Key_de_Y          ,
-   ___                                  , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
+   Key_CapsLock                         , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
    Key_RightControl                     , SFT_T(Tab)             , Key_Spacebar      , Key_LeftAlt        ,
    ShiftToLayer(PA))                    ,
 
@@ -260,27 +257,6 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   return MACRO_NONE;
 }
 
-// caps lock keys, hold both shift keys
-static const kaleidoscope::MagicCombo::combo_t magic_combos[] PROGMEM = {
-  {R2C7, // left hand,
-   R2C8  // right hand
-  },
-  {0, 0}
-};
-
-void magicComboActions(uint8_t combo_index,
-                       uint32_t left_hand, uint32_t right_hand) {
-  switch (combo_index) {
-  // send a caps lock key press
-  case 0:
-    kaleidoscope::hid::pressKey(Key_CapsLock);
-    kaleidoscope::hid::sendKeyboardReport();
-    kaleidoscope::hid::releaseKey(Key_CapsLock);
-    break;
-  }
-}
-
-
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less on the
 // Keyboardio Model 01.
@@ -346,6 +322,9 @@ void setup() {
     // We start with the LED effect that turns off all the LEDs.
     &LEDOff,
 
+    // current main effect
+    &solidIndigo,
+
     // The rainbow effect changes the color of all of the keyboard's keys at the same time
     // running through all the colors of the rainbow.
     &LEDRainbowEffect,
@@ -385,9 +364,6 @@ void setup() {
     // and allows us to turn LEDs off when it goes to sleep.
     &HostPowerManagement,
 
-    // The MagicPower plugin enables actions when keys are held together.
-    &MagicCombo,
-
     // The DualUse plugin
     &DualUse
   );
@@ -416,9 +392,6 @@ void setup() {
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
   LEDOff.activate();
-
-  // Activate magic combos
-  MagicCombo.magic_combos = magic_combos;
 }
 
 /** loop is the second of the standard Arduino sketch functions.
