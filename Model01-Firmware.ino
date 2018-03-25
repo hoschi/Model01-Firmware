@@ -147,7 +147,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ALT_T(Escape)                        , Key_Backspace          , SFT_T(Enter)      , Key_LeftControl    ,
    ShiftToLayer(PA)                     ,
 
-   Key_UpArrow                          , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
+   System_Sleep                         , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
                               Key_Enter , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
    /*                                   , */Key_de_S             , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D           , Key_de_Y          ,
    ___                                  , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
@@ -179,7 +179,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
    ___                                  , ___                    , ___               , ___                , ___                 , ___                , ___               ,
    ___                                  , ___                    , Key_7             , Key_8              , Key_9               , Key_de_Plus        , Key_de_Minus      ,
-/*                                      , */ ___                 , Key_4             , Key_5              , Key_6               , Key_de_Comma       , Key_de_Period     ,
+/*                                      , */ Key_de_Euro         , Key_4             , Key_5              , Key_6               , Key_de_Comma       , Key_de_Period     ,
    ___                                  , Key_de_Colon           , Key_1             , Key_2              , Key_3               , Key_de_Semicolon   , ___               ,
    ___                                  , Key_0                  , ___               , ___                ,
    ___)                                 ,
