@@ -310,6 +310,9 @@ void setup() {
   // The order can be important. For example, LED effects are
   // added in the order they're listed here.
   Kaleidoscope.use(
+    // The Qukeys plugin
+    &Qukeys,
+
     // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
     &BootGreetingEffect,
 
@@ -362,10 +365,7 @@ void setup() {
 
     // The HostPowerManagement plugin enables waking up the host from suspend,
     // and allows us to turn LEDs off when it goes to sleep.
-    &HostPowerManagement,
-
-    // The Qukeys plugin
-    &Qukeys
+    &HostPowerManagement
   );
 
   // While we hope to improve this in the future, the NumPad plugin
