@@ -138,14 +138,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [QW] = KEYMAP_STACKED
   (___                                  , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5              , Key_LEDEffectNext ,
-   Consumer_PlaySlashPause              , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , Key_Tab           ,
+   Consumer_PlaySlashPause              , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , ___               ,
    Consumer_ScanNextTrack               , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
    Consumer_ScanPreviousTrack           , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_LeftShift     ,
    ALT_T(Escape)                        , Key_Backspace          , SFT_T(Enter)      , Key_LeftControl    ,
    ShiftToLayer(PA)                     ,
 
    System_Sleep                         , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
-   Key_Enter                            , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
+   ___                                  , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
    /*                                   , */Key_de_S             , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D           , Key_de_Y          ,
    Key_CapsLock                         , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
    Key_RightControl                     , SFT_T(Tab)             , Key_Spacebar      , Key_LeftAlt        ,
