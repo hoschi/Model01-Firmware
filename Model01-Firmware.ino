@@ -25,9 +25,6 @@
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
-// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-#include "Kaleidoscope-NumPad.h"
-
 // Support for an "LED off mode"
 #include "LED-Off.h"
 
@@ -66,23 +63,17 @@
   * a macro key is pressed.
   */
 
-enum { MACRO_VERSION_INFO,
-       MACRO_ANY
+enum { MACRO_ANY
      };
 
 
 
-/** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
-  * keymaps: The standard QWERTY keymap, the "Function layer" keymap and the "Numpad"
-  * keymap.
+/** The Model 01's key layouts are defined as 'keymaps'.
   *
   * Each keymap is defined as a list using the 'KEYMAP_STACKED' macro, built
   * of first the left hand's layout, followed by the right hand's layout.
   *
-  * Keymaps typically consist mostly of `Key_` definitions. There are many, many keys
-  * defined as part of the USB HID Keyboard specification. You can find the names
-  * (if not yet the explanations) for all the standard `Key_` defintions offered by
-  * Kaleidoscope in these files:
+  * Keymaps typically consist mostly of `Key_` definitions:
   *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_keyboard.h
   *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_consumerctl.h
   *    https://github.com/keyboardio/Kaleidoscope/blob/master/src/key_defs_sysctl.h
@@ -93,15 +84,12 @@ enum { MACRO_VERSION_INFO,
   *   using XXX to mark a keyswitch as 'blocked' on this layer
   *   using ShiftToLayer() and LockLayer() keys to change the active keymap.
   *   the special nature of the PROG key
-  *   keeping NUM and FN consistent and accessible on all layers
   *
   *
   * The "keymaps" data structure is a list of the keymaps compiled into the firmware.
   * The order of keymaps in the list is important, as the ShiftToLayer(#) and LockLayer(#)
   * macros switch to key layers based on this list.
   *
-  *
-
   * A key defined as 'ShiftToLayer(FUNCTION)' will switch to FUNCTION while held.
   * Similarly, a key defined as 'LockLayer(NUMPAD)' will switch to NUMPAD when tapped.
   */
@@ -111,10 +99,9 @@ enum { MACRO_VERSION_INFO,
   * The third one is layer 2.
   * This 'enum' lets us use names like QWERTY, FUNCTION, and NUMPAD in place of
   * the numbers 0, 1 and 2.
-  *
   */
 
-enum { QW, PA, FU, NU }; // layers
+enum { QW, PA, FU }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -125,81 +112,54 @@ enum { QW, PA, FU, NU }; // layers
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [QW] = KEYMAP_STACKED
-  (___                                  , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5              , Key_LEDEffectNext ,
-   Consumer_PlaySlashPause              , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , ___               ,
-   Consumer_ScanNextTrack               , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
-   Consumer_ScanPreviousTrack           , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_LeftShift     ,
-   ALT_T(Escape)                        , Key_Backspace          , SFT_T(Enter)      , OSM(LeftControl)    ,
-   ShiftToLayer(PA)                     ,
+  (___                        , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5             , Key_LEDEffectNext ,
+   Consumer_PlaySlashPause    , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W          , ___               ,
+   Consumer_ScanNextTrack     , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O          ,
+   Consumer_ScanPreviousTrack , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z          , Key_LeftShift     ,
+   ALT_T(Escape)              , Key_Backspace          , SFT_T(Enter)      , OSM(LeftControl)   ,
+   ShiftToLayer(PA)           ,
 
-   System_Sleep                         , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
-   ___                                  , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
-   /*                                   , */ Key_de_S            , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D           , Key_de_Y          ,
-   Key_CapsLock                         , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
-   OSM(RightControl)                     , SFT_T(Tab)             , Key_Spacebar      , Key_LeftAlt        ,
-   ShiftToLayer(PA))                    ,
+   System_Sleep               , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0             , ___               ,
+   ___                        , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q          , Key_de_SZ         ,
+   /*                         , */ Key_de_S            , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D          , Key_de_Y          ,
+   Key_CapsLock               , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J          , ___               ,
+   OSM(RightControl)          , SFT_T(Tab)             , Key_Spacebar      , Key_LeftAlt        ,
+   ShiftToLayer(PA))          ,
 
   [PA] = KEYMAP_STACKED
-  (___                   , Key_F1                 , Key_F2            , Key_F3             , Key_F4              , Key_F5             , ___           ,
-   ___                   , ___                    , Key_de_Underscore , Key_de_LeftBracket , Key_de_RightBracket , Key_de_Circumflex  , ___           ,
-   ___                   , Key_de_Backslash       , Key_de_Slash      , Key_de_LeftCurly   , Key_de_RightCurly   , Key_de_Asterisk    ,
-   ___                   , Key_de_Hash            , Key_de_Dollar     , Key_de_Pipe        , Key_de_Tilde        , Key_de_Backtick    , ___           ,
-   ___                   , ShiftToLayer(FU)       , ___               , ___                ,
-   ___                   ,
+  (___                        , Key_F1                 , Key_F2            , Key_F3             , Key_F4              , Key_F5            , ___               ,
+   ___                        , ___                    , Key_de_Underscore , Key_de_LeftBracket , Key_de_RightBracket , Key_de_Circumflex , ___               ,
+   ___                        , Key_de_Backslash       , Key_de_Slash      , Key_de_LeftCurly   , Key_de_RightCurly   , Key_de_Asterisk   ,
+   ___                        , Key_de_Hash            , Key_de_Dollar     , Key_de_Pipe        , Key_de_Tilde        , Key_de_Backtick   , ___               ,
+   ___                        , ShiftToLayer(FU)       , ___               , ___                ,
+   ___                        ,
 
-   ___                   , Key_F6                 , Key_F7            , Key_F8             , Key_F9              , Key_F10            , Key_F11       ,
-   ___                   , Key_de_ExlamationMark  , Key_de_LessThan   , Key_de_GreaterThan , Key_de_Equals       , Key_de_Ampersand   , Key_F12       ,
-   /*                    , */ Key_de_QuestionMark , Key_de_LeftParen  , Key_de_RightParen  , Key_de_Minus        , Key_de_Colon       , Key_de_At     ,
-   ___                   , Key_de_Plus            , Key_de_Percent    , Key_de_DoubleQuote , Key_de_Quote        , Key_de_Semicolon   , ___           ,
-   ___                   , ___                    , OSL(FU)  , ___                ,
-   ___)                  ,
+   ___                        , Key_F6                 , Key_F7            , Key_F8             , Key_F9              , Key_F10           , Key_F11           ,
+   ___                        , Key_de_ExlamationMark  , Key_de_LessThan   , Key_de_GreaterThan , Key_de_Equals       , Key_de_Ampersand  , Key_F12           ,
+   /*                         , */ Key_de_QuestionMark , Key_de_LeftParen  , Key_de_RightParen  , Key_de_Minus        , Key_de_Colon      , Key_de_At         ,
+   ___                        , Key_de_Plus            , Key_de_Percent    , Key_de_DoubleQuote , Key_de_Quote        , Key_de_Semicolon  , ___               ,
+   ___                        , ___                    , OSL(FU)           , ___                ,
+   ___)                       ,
 
   [FU] =  KEYMAP_STACKED
-  (___                   , ___                    , ___               , ___                , ___                 , ___                , ___           ,
-   ___                   , Key_PageUp             , Key_Backspace     , Key_UpArrow        , Key_Delete          , Key_PageDown       , ___           ,
-   ___                   , Key_Home               , Key_LeftArrow     , Key_DownArrow      , Key_RightArrow      , Key_End            ,
-   ___                   , Key_Escape             , Key_Tab           , ___                , Key_Enter           , Key_Undo           , ___           ,
-   ___                   , ___                    , ___               , ___                ,
-   ___                   ,
+  (___                        , ___                    , ___               , ___                , ___                 , ___               , ___               ,
+   ___                        , Key_PageUp             , Key_Backspace     , Key_UpArrow        , Key_Delete          , Key_PageDown      , ___               ,
+   ___                        , Key_Home               , Key_LeftArrow     , Key_DownArrow      , Key_RightArrow      , Key_End           ,
+   ___                        , Key_Escape             , Key_Tab           , ___                , Key_Enter           , Key_Undo          , ___               ,
+   ___                        , ___                    , ___               , ___                ,
+   ___                        ,
 
-   ___                   , ___                    , ___               , ___                , ___                 , ___                , ___           ,
-   ___                   , ___                    , Key_7             , Key_8              , Key_9               , Key_de_Plus        , Key_de_Minus  ,
-  /*                     , */ Key_de_Euro         , Key_4             , Key_5              , Key_6               , Key_de_Comma       , Key_de_Period ,
-   ___                   , Key_de_Colon           , Key_1             , Key_2              , Key_3               , Key_de_Semicolon   , ___           ,
-   ___                   , Key_0                  , ___               , ___                ,
-   ___)                  ,
-
-  [NU] =  KEYMAP_STACKED
-  (___                   , ___                    , ___               , ___                , ___                 , ___                , ___           ,
-   ___                   , ___                    , ___               , ___                , ___                 , ___                , ___           ,
-   ___                   , ___                    , ___               , ___                , ___                 , ___                ,
-   ___                   , ___                    , ___               , ___                , ___                 , ___                , ___           ,
-   ___                   , ___                    , ___               , ___                ,
-   ___                   ,
-
-   M(MACRO_VERSION_INFO) , ___                    , Key_Keypad7       , Key_Keypad8        , Key_Keypad9         , Key_KeypadSubtract , ___           ,
-   ___                   , ___                    , Key_Keypad4       , Key_Keypad5        , Key_Keypad6         , Key_KeypadAdd      , ___           ,
-  /*                     , */ ___                 , Key_Keypad1       , Key_Keypad2        , Key_Keypad3         , Key_Equals         , Key_Quote     ,
-   ___                   , ___                    , Key_Keypad0       , Key_KeypadDot      , Key_KeypadMultiply  , Key_KeypadDivide   , Key_Enter     ,
-   ___                   , ___                    , ___               , ___                ,
-   ___)
+   ___                        , ___                    , ___               , ___                , ___                 , ___               , ___               ,
+   ___                        , ___                    , Key_7             , Key_8              , Key_9               , Key_de_Plus       , Key_de_Minus      ,
+  /*                          , */ Key_de_Euro         , Key_4             , Key_5              , Key_6               , Key_de_Comma      , Key_de_Period     ,
+   ___                        , Key_de_Colon           , Key_1             , Key_2              , Key_3               , Key_de_Semicolon  , ___               ,
+   ___                        , Key_0                  , ___               , ___                ,
+   ___)                       ,
 
 };
 
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
-
-/** versionInfoMacro handles the 'firmware version info' macro
- *  When a key bound to the macro is pressed, this macro
- *  prints out the firmware build information as virtual keystrokes
- */
-
-static void versionInfoMacro(uint8_t keyState) {
-  if (keyToggledOn(keyState)) {
-    Macros.type(PSTR("Keyboardio Model 01 - Kaleidoscope "));
-    Macros.type(PSTR(BUILD_INFORMATION));
-  }
-}
 
 /** anyKeyMacro is used to provide the functionality of the 'Any' key.
  *
@@ -233,10 +193,6 @@ static void anyKeyMacro(uint8_t keyState) {
 
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
-
-  case MACRO_VERSION_INFO:
-    versionInfoMacro(keyState);
-    break;
 
   case MACRO_ANY:
     anyKeyMacro(keyState);
@@ -308,10 +264,6 @@ void setup() {
     // current main effect
     &solidIndigo,
 
-    // The numpad plugin is responsible for lighting up the 'numpad' mode
-    // with a custom LED effect
-    &NumPad,
-
     // The macros plugin adds support for macros
     &Macros,
 
@@ -324,10 +276,6 @@ void setup() {
 
     &OneShot
   );
-
-  // While we hope to improve this in the future, the NumPad plugin
-  // needs to be explicitly told which keymap layer is your numpad layer
-  NumPad.numPadLayer = NU;
 
   // We want the keyboard to be able to wake the host up from suspend.
   HostPowerManagement.enableWakeup();
