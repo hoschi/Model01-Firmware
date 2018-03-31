@@ -47,6 +47,9 @@
 // Support key do different things while held or tapped
 #include <Kaleidoscope-Qukeys.h>
 
+// held or tap to shift to layer
+#include <Kaleidoscope-OneShot.h>
+
 // copied from pending PR https://github.com/michabu/Kaleidoscope/blob/0a305fcd5a4d8eb87865786c9a6fcd4ee2866493/src/kaleidoscope/lang/de_qwertz.h
 #include "lang_de_quertz.h"
 
@@ -126,14 +129,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Consumer_PlaySlashPause              , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W           , ___               ,
    Consumer_ScanNextTrack               , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O           ,
    Consumer_ScanPreviousTrack           , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z           , Key_LeftShift     ,
-   ALT_T(Escape)                        , Key_Backspace          , SFT_T(Enter)      , Key_LeftControl    ,
+   ALT_T(Escape)                        , Key_Backspace          , SFT_T(Enter)      , OSM(LeftControl)    ,
    ShiftToLayer(PA)                     ,
 
    System_Sleep                         , Key_6                  , Key_7             , Key_8              , Key_9               , Key_0              , LockLayer(NU)     ,
    ___                                  , Key_de_K               , Key_de_H          , Key_de_G           , Key_de_F            , Key_de_Q           , Key_de_SZ         ,
    /*                                   , */ Key_de_S            , Key_de_N          , Key_de_R           , Key_de_T            , Key_de_D           , Key_de_Y          ,
    Key_CapsLock                         , Key_de_B               , Key_de_M          , Key_de_Comma       , Key_de_Period       , Key_de_J           , ___               ,
-   Key_RightControl                     , SFT_T(Tab)             , Key_Spacebar      , Key_LeftAlt        ,
+   OSM(RightControl)                     , SFT_T(Tab)             , Key_Spacebar      , Key_LeftAlt        ,
    ShiftToLayer(PA))                    ,
 
   [PA] = KEYMAP_STACKED
@@ -148,7 +151,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___                   , Key_de_ExlamationMark  , Key_de_LessThan   , Key_de_GreaterThan , Key_de_Equals       , Key_de_Ampersand   , Key_F12       ,
    /*                    , */ Key_de_QuestionMark , Key_de_LeftParen  , Key_de_RightParen  , Key_de_Minus        , Key_de_Colon       , Key_de_At     ,
    ___                   , Key_de_Plus            , Key_de_Percent    , Key_de_DoubleQuote , Key_de_Quote        , Key_de_Semicolon   , ___           ,
-   ___                   , ___                    , ShiftToLayer(FU)  , ___                ,
+   ___                   , ___                    , OSL(FU)  , ___                ,
    ___)                  ,
 
   [FU] =  KEYMAP_STACKED
@@ -317,7 +320,9 @@ void setup() {
 
     // The HostPowerManagement plugin enables waking up the host from suspend,
     // and allows us to turn LEDs off when it goes to sleep.
-    &HostPowerManagement
+    &HostPowerManagement,
+
+    &OneShot
   );
 
   // While we hope to improve this in the future, the NumPad plugin
