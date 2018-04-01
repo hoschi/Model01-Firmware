@@ -113,7 +113,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [QW] = KEYMAP_STACKED
   (___                        , Key_1                  , Key_2             , Key_3              , Key_4               , Key_5             , Key_LEDEffectNext ,
-   Consumer_PlaySlashPause    , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W          , ___               ,
+   Consumer_PlaySlashPause    , Key_de_X               , Key_de_V          , Key_de_L           , Key_de_C            , Key_de_W          , LockLayer(FU)     ,
    Consumer_ScanNextTrack     , Key_de_U               , Key_de_I          , Key_de_A           , Key_de_E            , Key_de_O          ,
    Consumer_ScanPreviousTrack , Key_de_UE              , Key_de_OE         , Key_de_AE          , Key_de_P            , Key_de_Z          , Key_LeftShift     ,
    ALT_T(Escape)              , Key_Backspace          , SFT_T(Enter)      , OSM(LeftControl)   ,
