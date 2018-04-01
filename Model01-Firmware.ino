@@ -145,7 +145,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (___                        , ___                    , ___               , ___                , ___                 , ___               , ___               ,
    ___                        , Key_PageUp             , Key_Backspace     , Key_UpArrow        , Key_Delete          , Key_PageDown      , ___               ,
    ___                        , Key_Home               , Key_LeftArrow     , Key_DownArrow      , Key_RightArrow      , Key_End           ,
-   ___                        , Key_Escape             , Key_Tab           , ___                , Key_Enter           , Key_Undo          , ___               ,
+   ___                        , ___                    , ___               , ___                , ___                 , ___               , ___               ,
    ___                        , ___                    , ___               , ___                ,
    ___                        ,
 
