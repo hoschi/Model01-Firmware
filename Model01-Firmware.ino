@@ -152,8 +152,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___                        , ___                    , ___               , ___                , ___                 , ___               , ___               ,
    ___                        , ___                    , Key_7             , Key_8              , Key_9               , Key_de_Plus       , Key_de_Minus      ,
   /*                          , */ Key_de_Euro         , Key_4             , Key_5              , Key_6               , Key_de_Comma      , Key_de_Period     ,
-   ___                        , Key_de_Colon           , Key_1             , Key_2              , Key_3               , Key_de_Semicolon  , ___               ,
-   ___                        , Key_0                  , ___               , ___                ,
+   ___                        , Key_0                  , Key_1             , Key_2              , Key_3               , Key_de_Semicolon  , Key_de_Colon      ,
+   ___                        , ___                    , ___               , ___                ,
    ___)                       ,
 
 };
