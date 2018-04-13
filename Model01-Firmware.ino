@@ -47,6 +47,9 @@
 // held or tap to shift to layer
 #include <Kaleidoscope-OneShot.h>
 
+// color active or sticky modifier keys
+#include <Kaleidoscope-LED-ActiveModColor.h>
+
 // copied from pending PR https://github.com/michabu/Kaleidoscope/blob/0a305fcd5a4d8eb87865786c9a6fcd4ee2866493/src/kaleidoscope/lang/de_qwertz.h
 #include "lang_de_quertz.h"
 
@@ -263,6 +266,9 @@ void setup() {
 
     // current main effect
     &solidIndigo,
+
+    // modifier LED effect
+    &ActiveModColorEffect,
 
     // The macros plugin adds support for macros
     &Macros,
