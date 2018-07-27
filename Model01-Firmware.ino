@@ -278,7 +278,7 @@ USE_MAGIC_COMBOS({.action = toggleKeyboardProtocol,
 KALEIDOSCOPE_INIT_PLUGINS(
   // The Qukeys plugin
   Qukeys,
-  
+
   // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
   BootGreetingEffect,
 
@@ -290,7 +290,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // We start with the LED effect that turns off all the LEDs.
   LEDOff,
-  
+
   // current main effect
   solidIndigo,
 
